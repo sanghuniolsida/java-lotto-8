@@ -34,9 +34,10 @@ public final class ProfitRate {
         }
     }
 
+    // 음수 검증은 필요 없을 수 있겠지만, 방어적 가드로 사용하기 위해 작성했음
     private static void validatePrizeNotNegative(long totalPrize) {
         if (totalPrize < 0) {
-            throw new IllegalArgumentException("[ERROR] 총 상금은 음수가 될 수 없습니다.");
+            throw new IllegalArgumentException("[ERROR] 총 상금은 음수가 될 수 없습니다."); // 0원은 가능
         }
     }
 }
