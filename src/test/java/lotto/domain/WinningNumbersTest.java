@@ -1,14 +1,18 @@
 package lotto.domain;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
+@DisplayName("WinningNumbers 테스트")
 class WinningNumbersTest {
 
     @Test
-    void 정상_생성() {
+    @DisplayName("정상 생성")
+    void create_valid() {
         LottoNumbers winning = new LottoNumbers(List.of(1, 2, 3, 4, 5, 6));
         WinningNumbers w = new WinningNumbers(winning, 7);
 
@@ -17,7 +21,8 @@ class WinningNumbersTest {
     }
 
     @Test
-    void 보너스가_메인과_중복이면_예외() {
+    @DisplayName("보너스가 메인과 중복이면 예외")
+    void bonus_overlaps_with_winning_throws() {
         LottoNumbers winning = new LottoNumbers(List.of(1, 2, 3, 4, 5, 6));
         assertThatThrownBy(() -> new WinningNumbers(winning, 6))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -25,7 +30,8 @@ class WinningNumbersTest {
     }
 
     @Test
-    void 보너스가_범위를_벗어나면_예외() {
+    @DisplayName("보너스가 범위를 벗어나면 예외")
+    void bonus_out_of_range_throws() {
         LottoNumbers winning = new LottoNumbers(List.of(1, 2, 3, 4, 5, 6));
         assertThatThrownBy(() -> new WinningNumbers(winning, 0))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -36,7 +42,8 @@ class WinningNumbersTest {
     }
 
     @Test
-    void 경계값_OK_보너스가_1이나_45여도_메인에_없으면_허용() {
+    @DisplayName("경계값 OK: 1 또는 45(메인에 없으면 허용)")
+    void boundary_bonus_1_or_45_ok_when_not_in_winning() {
         LottoNumbers winning = new LottoNumbers(List.of(2, 3, 4, 5, 6, 7));
         assertThatCode(() -> new WinningNumbers(winning, 1)).doesNotThrowAnyException();
 
