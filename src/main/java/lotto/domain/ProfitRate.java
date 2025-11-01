@@ -12,6 +12,7 @@ public final class ProfitRate {
 
     public static ProfitRate calculateRate(long totalPrize, long purchaseAmount) {
         validatePurchasePositive(purchaseAmount);
+        validatePrizeNotNegative(totalPrize);
 
         BigDecimal prizeAmount = BigDecimal.valueOf(totalPrize);
         BigDecimal purchaseAmountDecimal = BigDecimal.valueOf(purchaseAmount);
@@ -30,6 +31,12 @@ public final class ProfitRate {
     private static void validatePurchasePositive(long purchaseAmount) {
         if (purchaseAmount <= 0) {
             throw new IllegalArgumentException("[ERROR] 구매 금액이 0보다 커야 수익률을 계산할 수 있습니다.");
+        }
+    }
+
+    private static void validatePrizeNotNegative(long totalPrize) {
+        if (totalPrize < 0) {
+            throw new IllegalArgumentException("[ERROR] 총 상금은 음수가 될 수 없습니다.");
         }
     }
 }
