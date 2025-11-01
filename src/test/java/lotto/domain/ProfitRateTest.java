@@ -39,4 +39,13 @@ class ProfitRateTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageStartingWith("[ERROR]");
     }
+
+    @Test
+    @DisplayName("총 상금이 음수이면 [ERROR]로 시작하는 예외")
+    void throws_when_total_prize_is_negative() {
+        assertThatThrownBy(() -> ProfitRate.calculateRate(-1, 8_000))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageStartingWith("[ERROR]");
+    }
+
 }
