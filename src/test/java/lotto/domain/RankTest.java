@@ -11,13 +11,13 @@ class RankTest {
     @Test
     @DisplayName("일치수와 보너스 여부로 등수 결정")
     void decide_rank_by_matches_and_bonus() {
-        assertThat(Rank.from(6, false)).isEqualTo(Rank.FIRST);
-        assertThat(Rank.from(5, true)).isEqualTo(Rank.SECOND);
-        assertThat(Rank.from(5, false)).isEqualTo(Rank.THIRD);
-        assertThat(Rank.from(4, false)).isEqualTo(Rank.FOURTH);
-        assertThat(Rank.from(3, false)).isEqualTo(Rank.FIFTH);
-        assertThat(Rank.from(2, false)).isEqualTo(Rank.MISS);
-        assertThat(Rank.from(0, false)).isEqualTo(Rank.MISS);
+        assertThat(Rank.fromMatchResult(6, false)).isEqualTo(Rank.FIRST);
+        assertThat(Rank.fromMatchResult(5, true)).isEqualTo(Rank.SECOND);
+        assertThat(Rank.fromMatchResult(5, false)).isEqualTo(Rank.THIRD);
+        assertThat(Rank.fromMatchResult(4, false)).isEqualTo(Rank.FOURTH);
+        assertThat(Rank.fromMatchResult(3, false)).isEqualTo(Rank.FIFTH);
+        assertThat(Rank.fromMatchResult(2, false)).isEqualTo(Rank.MISS);
+        assertThat(Rank.fromMatchResult(0, false)).isEqualTo(Rank.MISS);
     }
 
     @Test
