@@ -1,6 +1,6 @@
 package lotto.view;
 
-import lotto.domain.LottoNumbers;
+import lotto.Lotto;
 import lotto.domain.ProfitRate;
 import lotto.domain.Rank;
 
@@ -11,10 +11,10 @@ public final class OutputView {
 
     private OutputView() {}
 
-    public static void printPurchased(List<LottoNumbers> tickets) {
-        System.out.println(tickets.size() + "개를 구매했습니다.");
-        for (LottoNumbers t : tickets) {
-            System.out.println(t.getSortedNumbers());
+    public static void printPurchased(List<Lotto> purchasedTickets) {
+        System.out.println(purchasedTickets.size() + "개를 구매했습니다.");
+        for (Lotto ticket : purchasedTickets) {
+            System.out.println(ticket.numbers()); // Lotto가 오름차순 정렬 보장
         }
         System.out.println();
     }
@@ -24,19 +24,19 @@ public final class OutputView {
         System.out.println("---");
     }
 
-    public static void printRankCounts(Map<Rank, Long> counts) {
-        System.out.printf("3개 일치 (5,000원) - %d개%n", counts.getOrDefault(Rank.FIFTH, 0L));
-        System.out.printf("4개 일치 (50,000원) - %d개%n", counts.getOrDefault(Rank.FOURTH, 0L));
-        System.out.printf("5개 일치 (1,500,000원) - %d개%n", counts.getOrDefault(Rank.THIRD, 0L));
-        System.out.printf("5개 일치, 보너스 볼 일치 (30,000,000원) - %d개%n", counts.getOrDefault(Rank.SECOND, 0L));
-        System.out.printf("6개 일치 (2,000,000,000원) - %d개%n", counts.getOrDefault(Rank.FIRST, 0L));
+    public static void printRankCounts(Map<Rank, Long> rankCounts) {
+        System.out.printf("3개 일치 (5,000원) - %d개%n", rankCounts.getOrDefault(Rank.FIFTH, 0L));
+        System.out.printf("4개 일치 (50,000원) - %d개%n", rankCounts.getOrDefault(Rank.FOURTH, 0L));
+        System.out.printf("5개 일치 (1,500,000원) - %d개%n", rankCounts.getOrDefault(Rank.THIRD, 0L));
+        System.out.printf("5개 일치, 보너스 볼 일치 (30,000,000원) - %d개%n", rankCounts.getOrDefault(Rank.SECOND, 0L));
+        System.out.printf("6개 일치 (2,000,000,000원) - %d개%n", rankCounts.getOrDefault(Rank.FIRST, 0L));
     }
 
-    public static void printProfitRate(ProfitRate rate) {
-        System.out.printf("총 수익률은 %s입니다.%n", rate.asPercentage());
+    public static void printProfitRate(ProfitRate profitRate) {
+        System.out.printf("총 수익률은 %s입니다.%n", profitRate.asPercentage()); // asPercent()이면 이름 맞춰 변경
     }
 
-    public static void printError(String message) {
-        System.out.println(message);
+    public static void printError(String errorMessage) {
+        System.out.println(errorMessage);
     }
 }
