@@ -37,9 +37,9 @@
 
 ### 로또 발행
 - [x] 구입 금액에 해당하는 로또 장수를 계산한다 (장당 1,000원).
-- [ ] 각 로또는 1~45 범위의 **중복되지 않는** 숫자 6개로 구성한다.
-- [ ] 발행된 각 로또 번호를 **오름차순**으로 **정렬**한다.
-- [ ] 랜덤 번호 생성은 `camp.nextstep.edu.missionutils.Randoms.pickUniqueNumbersInRange()`를 활용한다.
+- [x] 각 로또는 1~45 범위의 **중복되지 않는** 숫자 6개로 구성한다.
+- [x] 발행된 각 로또 번호를 **오름차순**으로 **정렬**한다.
+- [x] 랜덤 번호 생성은 `camp.nextstep.edu.missionutils.Randoms.pickUniqueNumbersInRange()`를 활용한다.
 
 ### 당첨 번호/보너스 번호 검증
 - [x] 당첨 번호 6개의 범위를 검증한다 (1~45).
