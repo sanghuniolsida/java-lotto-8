@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import lotto.Lotto;
+
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -8,27 +10,28 @@ public final class Statistics {
 
     private Statistics() {}
 
-    public static Result calculate(List<LottoNumbers> tickets,
+    public static Result calculate(List<Lotto> tickets,
                                    WinningNumbers winning,
                                    Money purchase) {
         validateInputsNotNull(tickets, winning, purchase);
 
-        Map<Rank, Long> rankCounts = initCountsByRank();
+        Map<Rank, Long> rankCounts = initializeRankCounts();
         long totalPrize = 0L;
 
-        for (LottoNumbers ticket : tickets) {
-            // Tell, Don't Ask: 판정은 WinningNumbers가 수행
+        for (Lotto ticket : tickets) {
             Rank rank = winning.rankOf(ticket);
-
             rankCounts.put(rank, rankCounts.get(rank) + 1);
             totalPrize += rank.prize();
         }
 
+        // 프로젝트에 따라 아래 라인을 사용하세요.
+        // ProfitRate profitRate = ProfitRate.of(totalPrize, purchase.amount());
         ProfitRate profitRate = ProfitRate.calculateRate(totalPrize, purchase.amount());
+
         return new Result(rankCounts, totalPrize, profitRate);
     }
 
-    private static void validateInputsNotNull(List<LottoNumbers> tickets,
+    private static void validateInputsNotNull(List<Lotto> tickets,
                                               WinningNumbers winning,
                                               Money purchase) {
         if (tickets == null) {
@@ -42,7 +45,7 @@ public final class Statistics {
         }
     }
 
-    private static Map<Rank, Long> initCountsByRank() {
+    private static Map<Rank, Long> initializeRankCounts() {
         Map<Rank, Long> map = new EnumMap<>(Rank.class);
         for (Rank r : Rank.values()) {
             map.put(r, 0L);

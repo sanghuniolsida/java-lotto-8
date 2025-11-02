@@ -1,14 +1,17 @@
 package lotto.domain;
 
+import lotto.Lotto;
+
 import java.util.List;
 
 public final class WinningNumbers {
     private static final int MIN_NUMBER = 1;
     private static final int MAX_NUMBER = 45;
-    private final LottoNumbers winning;
-    private final int bonus;
 
-    public WinningNumbers(LottoNumbers winning, int bonus) {
+    private final Lotto winning; // 메인 당첨 번호 6개
+    private final int bonus;     // 보너스 번호 1개
+
+    public WinningNumbers(Lotto winning, int bonus) {
         validateWinningNotNull(winning);
         validateBonusRange(bonus);
         validateNoOverlap(winning, bonus);
@@ -16,27 +19,24 @@ public final class WinningNumbers {
         this.bonus = bonus;
     }
 
-    public LottoNumbers winning() {
-        return winning;
-    }
+    public Lotto winning() { return winning; }
+    public int bonus() { return bonus; }
 
-    public int bonus() {
-        return bonus;
-    }
+    /** 티켓의 등수를 스스로 판정한다 (Tell, Don't Ask). */
+    public Rank rankOf(Lotto ticket) {
+        validateTicketNotNull(ticket);
 
-    /** 티켓 번호에 대한 등수를 스스로 판정한다(Tell, Don't Ask). */
-    public Rank rankOf(LottoNumbers ticketNumbers) {
-        validateTicketNotNull(ticketNumbers);
-
-        List<Integer> sortedTicketNumbers = ticketNumbers.getSortedNumbers();
-        List<Integer> sortedWinningNumbers = winning.getSortedNumbers();
+        List<Integer> sortedTicketNumbers = ticket.numbers();   // Lotto가 오름차순 보장
+        List<Integer> sortedWinningNumbers = winning.numbers();
 
         int matchCount = countMatchingNumbers(sortedTicketNumbers, sortedWinningNumbers);
         boolean isBonusMatched = sortedTicketNumbers.contains(bonus);
 
+
         return Rank.fromMatchResult(matchCount, isBonusMatched);
     }
 
+    /** 정렬된 두 리스트의 교집합 개수(일치 개수)를 센다. */
     private int countMatchingNumbers(List<Integer> sortedTicketNumbers,
                                      List<Integer> sortedWinningNumbers) {
         int i = 0, j = 0, matchCount = 0;
@@ -58,14 +58,14 @@ public final class WinningNumbers {
         return matchCount;
     }
 
-    private void validateWinningNotNull(LottoNumbers winningNumbers) {
+    private void validateWinningNotNull(Lotto winningNumbers) {
         if (winningNumbers == null) {
             throw new IllegalArgumentException("[ERROR] 당첨 번호가 null입니다.");
         }
     }
 
-    private void validateTicketNotNull(LottoNumbers ticketNumbers) {
-        if (ticketNumbers == null) {
+    private void validateTicketNotNull(Lotto ticket) {
+        if (ticket == null) {
             throw new IllegalArgumentException("[ERROR] 비교할 티켓 번호가 null입니다.");
         }
     }
@@ -76,8 +76,8 @@ public final class WinningNumbers {
         }
     }
 
-    private void validateNoOverlap(LottoNumbers winningNumbers, int bonusNumber) {
-        if (winningNumbers.getSortedNumbers().contains(bonusNumber)) {
+    private void validateNoOverlap(Lotto winningNumbers, int bonusNumber) {
+        if (winningNumbers.numbers().contains(bonusNumber)) {
             throw new IllegalArgumentException("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
         }
     }

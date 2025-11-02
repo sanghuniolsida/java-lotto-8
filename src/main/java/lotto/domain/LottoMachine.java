@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import lotto.Lotto;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,12 +11,12 @@ public final class LottoMachine {
         this.numberGenerator = numberGenerator;
     }
 
-    public List<LottoNumbers> generateTickets(Money purchaseMoney) {
+    public List<Lotto> generateTickets(Money purchaseMoney) {
         int ticketCount = purchaseMoney.lottoCount();
-        List<LottoNumbers> tickets = new ArrayList<>(ticketCount);
+        List<Lotto> tickets = new ArrayList<>(ticketCount);
 
         for (int i = 0; i < ticketCount; i++) {
-            tickets.add(new LottoNumbers(numberGenerator.generateSixUnique()));
+            tickets.add(new Lotto(numberGenerator.generateSixUnique()));
         }
         return List.copyOf(tickets);
     }
