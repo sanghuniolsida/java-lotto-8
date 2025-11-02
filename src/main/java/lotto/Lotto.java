@@ -16,5 +16,14 @@ public class Lotto {
         }
     }
 
-    // TODO: 추가 기능 구현
+    public java.util.List<Integer> numbers() {
+        java.util.List<Integer> copy = new java.util.ArrayList<>(numbers);
+        java.util.Collections.sort(copy);
+        return java.util.List.copyOf(copy);
+    }
+
+    @Override
+    public String toString() {
+        return numbers().toString();
+    }
 }
