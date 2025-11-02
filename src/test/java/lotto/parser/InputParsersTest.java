@@ -1,6 +1,6 @@
 package lotto.parser;
 
-import lotto.domain.LottoNumbers;
+import lotto.Lotto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -10,10 +10,10 @@ import static org.assertj.core.api.Assertions.*;
 class InputParsersTest {
 
     @Test
-    @DisplayName("쉼표로 구분된 6개 숫자 문자열을 LottoNumbers로 파싱")
+    @DisplayName("쉼표로 구분된 6개 숫자 문자열을 Lotto로 파싱")
     void parseWinningNumbers_ok() {
-        LottoNumbers nums = InputParsers.parseWinningNumbers("1,2,3,4,5,6");
-        assertThat(nums.getSortedNumbers()).containsExactly(1,2,3,4,5,6);
+        Lotto lotto = InputParsers.parseWinningNumbers("1,2,3,4,5,6");
+        assertThat(lotto.numbers()).containsExactly(1, 2, 3, 4, 5, 6);
     }
 
     @Test
