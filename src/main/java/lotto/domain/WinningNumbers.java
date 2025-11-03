@@ -2,7 +2,9 @@ package lotto.domain;
 
 import lotto.Lotto;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public final class WinningNumbers {
     private static final int MIN_NUMBER = 1;
@@ -22,39 +24,33 @@ public final class WinningNumbers {
     public Lotto winning() { return winning; }
     public int bonus() { return bonus; }
 
-    /** 티켓의 등수를 스스로 판정한다 (Tell, Don't Ask). */
+    // 티켓의 등수를 스스로 판정한다 (Tell, Don't Ask)
     public Rank rankOf(Lotto ticket) {
         validateTicketNotNull(ticket);
 
-        List<Integer> sortedTicketNumbers = ticket.numbers();
-        List<Integer> sortedWinningNumbers = winning.numbers();
+        List<Integer> ticketNumbers = ticket.numbers();
 
-        int matchCount = countMatchingNumbers(sortedTicketNumbers, sortedWinningNumbers);
-        boolean isBonusMatched = sortedTicketNumbers.contains(bonus);
+        int matchCount = countMatches(ticketNumbers);
+        boolean bonusMatched = hasBonusMatch(ticketNumbers);
 
-
-        return Rank.fromMatchResult(matchCount, isBonusMatched);
+        return Rank.fromMatchResult(matchCount, bonusMatched);
     }
 
-    private int countMatchingNumbers(List<Integer> sortedTicketNumbers,
-                                     List<Integer> sortedWinningNumbers) {
-        int i = 0, j = 0, matchCount = 0;
-        while (i < sortedTicketNumbers.size() && j < sortedWinningNumbers.size()) {
-            int ticketValue = sortedTicketNumbers.get(i);
-            int winningValue = sortedWinningNumbers.get(j);
-            if (ticketValue == winningValue) {
-                matchCount++;
-                i++;
-                j++;
-                continue;
+    private int countMatches(List<Integer> ticketNumbers) {
+        List<Integer> winningNumbers = winning.numbers();
+
+        Set<Integer> ticketSet = new HashSet<>(ticketNumbers);
+        int matches = 0;
+        for (int number : winningNumbers) {
+            if (ticketSet.contains(number)) {
+                matches++;
             }
-            if (ticketValue < winningValue) {
-                i++;
-                continue;
-            }
-            j++;
         }
-        return matchCount;
+        return matches;
+    }
+
+    private boolean hasBonusMatch(List<Integer> ticketNumbers) {
+        return ticketNumbers.contains(bonus);
     }
 
     private void validateWinningNotNull(Lotto winningNumbers) {
