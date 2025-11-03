@@ -8,6 +8,11 @@ import java.util.Map;
 
 public final class Statistics {
 
+    private static final String ERROR_TICKETS_NULL = "[ERROR] 티켓 목록은 null일 수 없습니다.";
+    private static final String ERROR_WINNING_NULL = "[ERROR] 당첨 번호는 null일 수 없습니다.";
+    private static final String ERROR_PURCHASE_NULL = "[ERROR] 구매 금액은 null일 수 없습니다.";
+
+
     private Statistics() {}
 
     public static Result calculate(List<Lotto> tickets,
@@ -46,13 +51,13 @@ public final class Statistics {
                                               WinningNumbers winning,
                                               Money purchase) {
         if (tickets == null) {
-            throw new IllegalArgumentException("[ERROR] 티켓 목록은 null일 수 없습니다.");
+            throw new IllegalArgumentException(ERROR_TICKETS_NULL);
         }
         if (winning == null) {
-            throw new IllegalArgumentException("[ERROR] 당첨 번호는 null일 수 없습니다.");
+            throw new IllegalArgumentException(ERROR_WINNING_NULL);
         }
         if (purchase == null) {
-            throw new IllegalArgumentException("[ERROR] 구매 금액은 null일 수 없습니다.");
+            throw new IllegalArgumentException(ERROR_PURCHASE_NULL);
         }
     }
 
