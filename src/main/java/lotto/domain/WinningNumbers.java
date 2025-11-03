@@ -37,16 +37,10 @@ public final class WinningNumbers {
     }
 
     private int countMatches(List<Integer> ticketNumbers) {
-        List<Integer> winningNumbers = winning.numbers();
-
         Set<Integer> ticketSet = new HashSet<>(ticketNumbers);
-        int matches = 0;
-        for (int number : winningNumbers) {
-            if (ticketSet.contains(number)) {
-                matches++;
-            }
-        }
-        return matches;
+        return (int) winning.numbers().stream()
+                .filter(ticketSet::contains)
+                .count();
     }
 
     private boolean hasBonusMatch(List<Integer> ticketNumbers) {
