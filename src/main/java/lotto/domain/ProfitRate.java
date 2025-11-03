@@ -4,6 +4,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public final class ProfitRate {
+    private static final BigDecimal PERCENTAGE_MULTIPLIER = BigDecimal.valueOf(100);
+    private static final int DECIMAL_SCALE = 1;
+    private static final String PERCENTAGE_SUFFIX = "%";
+
     private final String percentage;
 
     private ProfitRate(String percentage) {
@@ -18,10 +22,10 @@ public final class ProfitRate {
         BigDecimal purchaseAmountDecimal = BigDecimal.valueOf(purchaseAmount);
 
         BigDecimal profitRateValue = prizeAmount
-                .multiply(BigDecimal.valueOf(100))
-                .divide(purchaseAmountDecimal, 1, RoundingMode.HALF_UP);
+                .multiply(PERCENTAGE_MULTIPLIER)
+                .divide(purchaseAmountDecimal, DECIMAL_SCALE, RoundingMode.HALF_UP);
 
-        return new ProfitRate(profitRateValue.toPlainString() + "%");
+        return new ProfitRate(profitRateValue.toPlainString() + PERCENTAGE_SUFFIX);
     }
 
     public String asPercentage() {
@@ -34,10 +38,9 @@ public final class ProfitRate {
         }
     }
 
-    // 음수 검증은 필요 없을 수 있겠지만, 방어적 가드로 사용하기 위해 작성했음
     private static void validatePrizeNotNegative(long totalPrize) {
         if (totalPrize < 0) {
-            throw new IllegalArgumentException("[ERROR] 총 상금은 음수가 될 수 없습니다."); // 0원은 가능
+            throw new IllegalArgumentException("[ERROR] 총 상금은 음수가 될 수 없습니다.");
         }
     }
 }
