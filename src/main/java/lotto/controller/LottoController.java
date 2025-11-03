@@ -1,4 +1,3 @@
-// src/main/java/lotto/controller/LottoController.java
 package lotto.controller;
 
 import camp.nextstep.edu.missionutils.Console;
