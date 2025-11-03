@@ -13,6 +13,9 @@ import lotto.view.OutputView;
 import java.util.List;
 
 public final class LottoController {
+    private static final String MESSAGE_INPUT_PURCHASE = "구입금액을 입력해 주세요.";
+    private static final String MESSAGE_INPUT_WINNING = "당첨 번호를 입력해 주세요.";
+    private static final String MESSAGE_INPUT_BONUS = "보너스 번호를 입력해 주세요.";
 
     private final LottoMachine lottoMachine;
 
@@ -36,7 +39,7 @@ public final class LottoController {
     private Money readPurchaseMoneyWithRetry() {
         while (true) {
             try {
-                System.out.println("구입금액을 입력해 주세요.");
+                System.out.println(MESSAGE_INPUT_PURCHASE);
                 String purchaseAmountInput = Console.readLine();
                 long purchaseAmount = InputParsers.parseMoney(purchaseAmountInput);
                 return Money.of(purchaseAmount);
@@ -49,11 +52,11 @@ public final class LottoController {
     private WinningNumbers readWinningNumbersWithRetry() {
         while (true) {
             try {
-                System.out.println("당첨 번호를 입력해 주세요.");
+                System.out.println(MESSAGE_INPUT_WINNING);
                 String winningNumbersInput = Console.readLine();
                 Lotto mainWinningNumbers = InputParsers.parseWinningNumbers(winningNumbersInput);
 
-                System.out.println("보너스 번호를 입력해 주세요.");
+                System.out.println(MESSAGE_INPUT_BONUS);
                 String bonusNumberInput = Console.readLine();
                 int bonusNumber = InputParsers.parseBonus(bonusNumberInput);
 
