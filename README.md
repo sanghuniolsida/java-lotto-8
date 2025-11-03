@@ -1,7 +1,6 @@
 # 🥠 로또
 
 
-
 ## 🔖 목차
 - [프로젝트 개요](#프로젝트-개요)
 - [학습 목표](#-학습-목표)
@@ -10,7 +9,7 @@
 - [프로그래밍 요구 사항](#-프로그래밍-요구-사항)
 - [프로젝트 구조](#-프로젝트-구조)
 - [입출력 사용 예시](#-입출력-사용-예시)
-- [예외/재입력](#-예외-재입력)
+- [예외 및 재입력](#-예외-및-재입력)
 - [테스트 가이드](#-테스트-가이드)
 
 ---
@@ -69,7 +68,7 @@
 - [x] 잘못된 입력이 들어오면 `IllegalArgumentException`을 발생시킨다.
 - [x] 예외 메시지는 `[ERROR]`로 시작한다.
 - [x] 예외 발생 시 해당 단계부터 입력을 다시 받는다.
-- [x] 예외 처리 상세 목록은 [예외/재입력](#-예외-재입력) 섹션 참고.
+- [x] 예외 처리 상세 목록은 [예외 및 재입력](#-예외-및-재입력) 섹션 참고.
 
 ### 도메인/설계 제약(기능 관점)
 - [x] 제공된 `Lotto` 클래스를 사용하며, 생성 시 번호 개수(6개)를 검증한다.
@@ -108,24 +107,24 @@
     └─ main
       └─ java
         └─ lotto
-          ├─ Application.java 
-          ├─ Lotto.java
-          ├─ controller
+          ├─ Application.java  // 엔트리포인트
+          ├─ Lotto.java // 제공된 도메인 모델
+          ├─ controller // 콘솔 상호작용
           │  └─ LottoController.java
           ├─ domain
           │  ├─ LottoMachine.java
-          │  ├─ Money.java
-          │  ├─ NumberGenerator.java
-          │  ├─ ProfitRate.java
+          │  ├─ Money.java // 구매 금액 값 객체
+          │  ├─ NumberGenerator.java // 6개 유니크 번호 생성
+          │  ├─ ProfitRate.java // 수익률 값 객체
           │  ├─ Rank.java
-          │  ├─ Statistics.java
-          │  └─ WinningNumbers.java
+          │  ├─ Statistics.java 
+          │  └─ WinningNumbers.java // 당첨/보너스 보유 + 등수 판정
           ├─ generator
-          │  └─ MissionUtilsNumberGenerator.java
+          │  └─ MissionUtilsNumberGenerator.java 
           ├─ parser
-          │  └─ InputParsers.java
+          │  └─ InputParsers.java // 입력 문자열 파싱
           └─ view
-             └─ OutputView.java
+             └─ OutputView.java // 출력 전용
 
 ---
 
@@ -170,7 +169,7 @@
 
 ---
 
-## 🚨 예외/재입력
+## 🚨 예외 및 재입력
 
 | 상황              | 검증 위치                     | 예외 메시지 예                             |
 | --------------- | ------------------------- | ------------------------------------ |

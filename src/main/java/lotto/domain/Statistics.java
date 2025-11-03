@@ -15,18 +15,31 @@ public final class Statistics {
                                    Money purchase) {
         validateInputsNotNull(tickets, winning, purchase);
 
+        Map<Rank, Long> rankCounts = countRanksByTickets(tickets, winning);
+        long totalPrize = calculateTotalPrize(rankCounts);
+        ProfitRate profitRate = ProfitRate.calculateRate(totalPrize, purchase.amount());
+
+        return new Result(rankCounts, totalPrize, profitRate);
+    }
+
+    private static Map<Rank, Long> countRanksByTickets(List<Lotto> tickets,
+                                                       WinningNumbers winning) {
         Map<Rank, Long> rankCounts = initializeRankCounts();
-        long totalPrize = 0L;
 
         for (Lotto ticket : tickets) {
             Rank rank = winning.rankOf(ticket);
             rankCounts.put(rank, rankCounts.get(rank) + 1);
-            totalPrize += rank.prize();
         }
 
-        ProfitRate profitRate = ProfitRate.calculateRate(totalPrize, purchase.amount());
+        return rankCounts;
+    }
 
-        return new Result(rankCounts, totalPrize, profitRate);
+    private static long calculateTotalPrize(Map<Rank, Long> rankCounts) {
+        long total = 0L;
+        for (Map.Entry<Rank, Long> entry : rankCounts.entrySet()) {
+            total += entry.getKey().prize() * entry.getValue();
+        }
+        return total;
     }
 
     private static void validateInputsNotNull(List<Lotto> tickets,
