@@ -10,6 +10,12 @@ public final class WinningNumbers {
     private static final int MIN_NUMBER = 1;
     private static final int MAX_NUMBER = 45;
 
+    private static final String ERROR_WINNING_NULL = "[ERROR] 당첨 번호가 null입니다.";
+    private static final String ERROR_TICKET_NULL = "[ERROR] 비교할 티켓 번호가 null입니다.";
+    private static final String ERROR_BONUS_RANGE = "[ERROR] 보너스 번호는 1~45 사이여야 합니다.";
+    private static final String ERROR_BONUS_OVERLAP = "[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.";
+
+
     private final Lotto winning;
     private final int bonus;
 
@@ -49,25 +55,25 @@ public final class WinningNumbers {
 
     private void validateWinningNotNull(Lotto winningNumbers) {
         if (winningNumbers == null) {
-            throw new IllegalArgumentException("[ERROR] 당첨 번호가 null입니다.");
+            throw new IllegalArgumentException(ERROR_WINNING_NULL);
         }
     }
 
     private void validateTicketNotNull(Lotto ticket) {
         if (ticket == null) {
-            throw new IllegalArgumentException("[ERROR] 비교할 티켓 번호가 null입니다.");
+            throw new IllegalArgumentException(ERROR_TICKET_NULL);
         }
     }
 
     private void validateBonusRange(int bonusNumber) {
         if (bonusNumber < MIN_NUMBER || bonusNumber > MAX_NUMBER) {
-            throw new IllegalArgumentException("[ERROR] 보너스 번호는 1~45 사이여야 합니다.");
+            throw new IllegalArgumentException(ERROR_BONUS_RANGE);
         }
     }
 
     private void validateNoOverlap(Lotto winningNumbers, int bonusNumber) {
         if (winningNumbers.numbers().contains(bonusNumber)) {
-            throw new IllegalArgumentException("[ERROR] 보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+            throw new IllegalArgumentException(ERROR_BONUS_OVERLAP);
         }
     }
 }
