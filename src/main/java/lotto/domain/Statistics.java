@@ -24,8 +24,6 @@ public final class Statistics {
             totalPrize += rank.prize();
         }
 
-        // 프로젝트에 따라 아래 라인을 사용하세요.
-        // ProfitRate profitRate = ProfitRate.of(totalPrize, purchase.amount());
         ProfitRate profitRate = ProfitRate.calculateRate(totalPrize, purchase.amount());
 
         return new Result(rankCounts, totalPrize, profitRate);

@@ -8,8 +8,8 @@ public final class WinningNumbers {
     private static final int MIN_NUMBER = 1;
     private static final int MAX_NUMBER = 45;
 
-    private final Lotto winning; // 메인 당첨 번호 6개
-    private final int bonus;     // 보너스 번호 1개
+    private final Lotto winning;
+    private final int bonus;
 
     public WinningNumbers(Lotto winning, int bonus) {
         validateWinningNotNull(winning);
@@ -26,7 +26,7 @@ public final class WinningNumbers {
     public Rank rankOf(Lotto ticket) {
         validateTicketNotNull(ticket);
 
-        List<Integer> sortedTicketNumbers = ticket.numbers();   // Lotto가 오름차순 보장
+        List<Integer> sortedTicketNumbers = ticket.numbers();
         List<Integer> sortedWinningNumbers = winning.numbers();
 
         int matchCount = countMatchingNumbers(sortedTicketNumbers, sortedWinningNumbers);
@@ -36,7 +36,6 @@ public final class WinningNumbers {
         return Rank.fromMatchResult(matchCount, isBonusMatched);
     }
 
-    /** 정렬된 두 리스트의 교집합 개수(일치 개수)를 센다. */
     private int countMatchingNumbers(List<Integer> sortedTicketNumbers,
                                      List<Integer> sortedWinningNumbers) {
         int i = 0, j = 0, matchCount = 0;

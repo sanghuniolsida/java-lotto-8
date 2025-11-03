@@ -14,7 +14,7 @@ public final class OutputView {
     public static void printPurchased(List<Lotto> purchasedTickets) {
         System.out.println(purchasedTickets.size() + "개를 구매했습니다.");
         for (Lotto ticket : purchasedTickets) {
-            System.out.println(ticket.numbers()); // Lotto가 오름차순 정렬 보장
+            System.out.println(ticket.numbers());
         }
         System.out.println();
     }
@@ -33,7 +33,7 @@ public final class OutputView {
     }
 
     public static void printProfitRate(ProfitRate profitRate) {
-        System.out.printf("총 수익률은 %s입니다.%n", profitRate.asPercentage()); // asPercent()이면 이름 맞춰 변경
+        System.out.printf("총 수익률은 %s입니다.%n", profitRate.asPercentage());
     }
 
     public static void printError(String errorMessage) {
